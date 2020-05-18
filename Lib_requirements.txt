@@ -1,0 +1,8 @@
+Python Version Used :-3.8.0
+python libraries Used
+numpy  
+pandas 
+matplotlib 
+seaborn 
+pymongo
+
