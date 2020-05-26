@@ -41,11 +41,7 @@ model = knn# put yours model
 
 # save the model to disk
 filename = 'final.sav'
-
 pickle.dump(model, open(filename, 'wb'))
-
-
-
 
 # load the model from disk
 loaded_model = pickle.load(open(filename, 'rb'))
@@ -53,20 +49,23 @@ result = loaded_model.score(X_test, y_test)
 print(result)
 
 
+
+
+
 def save_model_to_db(model,client,db,dbconnection,model_name):
     pickled_model=pickle.dumps(model)
-# creating connection
+    # creating connection
     myclient=pymongo.MongoClient(client)
-#creating database in mongodb mydb myclient[db)
+    #creating database in mongodb mydb myclient[db)
     mydb=myclient[db]
-#creating collection
+    #creating collection
     mycon=mydb[dbconnection]
     info=mycon.insert_one({model_name: pickled_model, 'name': model_name, 'created_time':time.time()})
     print(info.inserted_id,"saved with this id successfullyt")
     details={
-    'inserted_id':info.inserted_id,
-    "model_name":model_name,
-    'created_time':time.time()
+        'inserted_id':info.inserted_id,
+        "model_name":model_name,
+        'created_time':time.time()
     }
     return details
 
@@ -75,9 +74,9 @@ details=save_model_to_db(model=knn,client='mongodb://localhost:27017/',db='Iris3
 def load_saved_model_from_db(model_name,client,db,dbconnection):
     json_data={}
     myclient=pymongo.MongoClient(client)
-#creating database in mongodb mydb myclient[db)
+    #creating database in mongodb mydb myclient[db)
     mydb=myclient[db]
-#creating collection
+    #creating collection
     mycon=mydb[dbconnection]
     data=mycon.find({'name':model_name})
     
@@ -87,70 +86,3 @@ def load_saved_model_from_db(model_name,client,db,dbconnection):
     pickled_model=json_data[model_name]
     return pickle.loads(pickled_model)
     
-        
-    
-    
-
-    
-    
-
-
-# In[ ]:
-
-
-x=load_saved_model_from_db(model_name=details['model_name'],client='mongodb://localhost:27017/',db='Iris3',dbconnection='data1')
-
-
-# In[ ]:
-
-
-print(x.score(X_test, y_test)
-
-
-# In[ ]:
-
-
-
-
-
-# In[27]:
-
-
-
-
-
-# In[28]:
-
-
-
-
-
-# In[29]:
-
-
-
-
-
-# In[30]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
