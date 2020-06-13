@@ -32,8 +32,6 @@ def save_model_to_db(model, client, db, dbconnection, model_name):
     return details
 
 
-details = save_model_to_db(model=model, client='mongodb://localhost:27017/', db='car', dbconnection='data',
-                           model_name='carmodel')
 
 
 """
@@ -101,6 +99,8 @@ model = KNeighborsClassifier(n_neighbors=maxacc)
 model.fit(X_train, y_train)
 
 
+details = save_model_to_db(model=model, client='mongodb://localhost:27017/', db='car', dbconnection='data',
+                           model_name='carmodel')
 
 x = load_saved_model_from_db(model_name=details['model_name'], client='mongodb://localhost:27017/', db='car',
                              dbconnection='data')
