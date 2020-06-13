@@ -1,0 +1,9 @@
+Python Version-
+3.8.3
+
+Tools to be used :
+
+Numpy
+pandas
+scikit-learn
+Pymongo
